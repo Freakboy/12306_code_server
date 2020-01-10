@@ -114,5 +114,5 @@ class Verify:
 
 
 if __name__ == '__main__':
-    pass
-    # verify("verify-img1.jpeg")
+    # pass
+    Verify().verify("/home/allen/Desktop/1.png")

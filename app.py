@@ -46,6 +46,7 @@ def base64_to_image(base64_code):
     :return: bgr格式的图片
     '''
     # base64解码
+    print(type(base64_code))
     img_data = base64.b64decode(base64_code)
     # 读取图片
     img = np.asarray(Image.open(io.BytesIO(img_data)))
@@ -120,13 +121,23 @@ def predict_verify():
         labels = predict(imgModel, imgs)
         labels = labels.argmax(axis=1)
         results = []
+        ans = []
         for pos, label in enumerate(labels):
             l = verify_titles[label]
             print(pos + 1, l)
+            ans.insert(pos + 1,str(pos + 1) + ' ' + l)
             if l in text_list:
                 results.append(str(pos + 1))
-        if(len(results) != 0):
-            return {'code': 0, 'massage': '识别成功', 'data': results}
+
+        # from collections import OrderedDict
+        # res = OrderedDict()
+        # res['code'] = 0
+        # res['massage'] = '识别成功'
+        # res['data'] = results
+        # res['title'] = text_list
+        # res['ans'] = ans
+        if (len(results) != 0):
+            return {'1code': 0, '2massage': '识别成功', '4data': results, '3title':text_list, '5ans':ans}
         else:
             return {'code': 1, 'massage': '识别失败', 'data': results}
 
@@ -137,4 +148,5 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=8008, debug=True)
+
